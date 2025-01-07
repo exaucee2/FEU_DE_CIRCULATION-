@@ -1,0 +1,259 @@
+|TrafficLightController
+BCD1[0] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD0[0]
+BCD1[1] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD0[1]
+BCD1[2] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD0[2]
+BCD1[3] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD0[3]
+GClock => Counter16:instCounter16.CLK
+GClock => FSMController:instFSMController.CLK
+GClock => debouncer_2:instDebouncer.i_clock
+GReset => Counter16:instCounter16.RESETN
+GReset => FSMController:instFSMController.RESETN
+GReset => debouncer_2:instDebouncer.i_resetBar
+SSCS => debouncer_2:instDebouncer.i_raw
+MSC[0] => MUX4:instMUXCounter.I0[0]
+MSC[1] => MUX4:instMUXCounter.I0[1]
+MSC[2] => MUX4:instMUXCounter.I0[2]
+MSC[3] => MUX4:instMUXCounter.I0[3]
+SSC[0] => MUX4:instMUXCounter.I2[0]
+SSC[1] => MUX4:instMUXCounter.I2[1]
+SSC[2] => MUX4:instMUXCounter.I2[2]
+SSC[3] => MUX4:instMUXCounter.I2[3]
+BCD2[0] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD1[0]
+BCD2[1] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD1[1]
+BCD2[2] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD1[2]
+BCD2[3] <= Binary2BCDDecoder4:instBinary2BCDDecoder4.BCD1[3]
+MSTL[0] <= FSMController:instFSMController.MSTL[0]
+MSTL[1] <= FSMController:instFSMController.MSTL[1]
+MSTL[2] <= FSMController:instFSMController.MSTL[2]
+SSTL[0] <= FSMController:instFSMController.SSTL[0]
+SSTL[1] <= FSMController:instFSMController.SSTL[1]
+SSTL[2] <= FSMController:instFSMController.SSTL[2]
+
+
+|TrafficLightController|Binary2BCDDecoder4:instBinary2BCDDecoder4
+BIN[0] => BCD0[0].DATAIN
+BIN[1] => BCD1.IN0
+BIN[1] => BCD0.IN0
+BIN[1] => BCD0.IN0
+BIN[1] => BCD0.IN1
+BIN[1] => BCD0.IN1
+BIN[2] => BCD1.IN0
+BIN[2] => BCD0.IN1
+BIN[2] => BCD0.IN0
+BIN[3] => BCD1.IN1
+BIN[3] => BCD1.IN1
+BIN[3] => BCD0.IN1
+BIN[3] => BCD0.IN1
+BIN[3] => BCD0.IN1
+BCD1[0] <= BCD1.DB_MAX_OUTPUT_PORT_TYPE
+BCD1[1] <= <GND>
+BCD1[2] <= <GND>
+BCD1[3] <= <GND>
+BCD0[0] <= BIN[0].DB_MAX_OUTPUT_PORT_TYPE
+BCD0[1] <= BCD0.DB_MAX_OUTPUT_PORT_TYPE
+BCD0[2] <= BCD0.DB_MAX_OUTPUT_PORT_TYPE
+BCD0[3] <= BCD0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|Counter16:instCounter16
+CLK => enARdFF_2:generateDFF:3:dffInst.i_clock
+CLK => enARdFF_2:generateDFF:2:dffInst.i_clock
+CLK => enARdFF_2:generateDFF:1:dffInst.i_clock
+CLK => enARdFF_2:generateDFF:0:dffInst.i_clock
+RESETN => enARdFF_2:generateDFF:3:dffInst.i_resetBar
+RESETN => enARdFF_2:generateDFF:2:dffInst.i_resetBar
+RESETN => enARdFF_2:generateDFF:1:dffInst.i_resetBar
+RESETN => enARdFF_2:generateDFF:0:dffInst.i_resetBar
+EN => signalNext.IN1
+EN => signalNext.IN1
+EN => signalNext.IN1
+EN => signalNext.IN1
+EN => signalNext.IN1
+EN => signalNext.IN1
+EN => signalNext.IN1
+LOAD => signalD[0].OUTPUTSELECT
+LOAD => signalD[1].OUTPUTSELECT
+LOAD => signalD[2].OUTPUTSELECT
+LOAD => signalD[3].OUTPUTSELECT
+INPUT[0] => signalD[0].DATAA
+INPUT[1] => signalD[1].DATAA
+INPUT[2] => signalD[2].DATAA
+INPUT[3] => signalD[3].DATAA
+EXPIRE <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+VALUE[0] <= enARdFF_2:generateDFF:0:dffInst.o_q
+VALUE[1] <= enARdFF_2:generateDFF:1:dffInst.o_q
+VALUE[2] <= enARdFF_2:generateDFF:2:dffInst.o_q
+VALUE[3] <= enARdFF_2:generateDFF:3:dffInst.o_q
+
+
+|TrafficLightController|Counter16:instCounter16|enARdFF_2:\generateDFF:3:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|Counter16:instCounter16|enARdFF_2:\generateDFF:2:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|Counter16:instCounter16|enARdFF_2:\generateDFF:1:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|Counter16:instCounter16|enARdFF_2:\generateDFF:0:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|FSMController:instFSMController
+CLK => enARdFF_2:generateDFF:3:dffInst.i_clock
+CLK => enARdFF_2:generateDFF:2:dffInst.i_clock
+CLK => enARdFF_2:generateDFF:1:dffInst.i_clock
+CLK => enARdFF_2:generateDFF:0:dffInst.i_clock
+RESETN => enARdFF_2:generateDFF:3:dffInst.i_resetBar
+RESETN => enARdFF_2:generateDFF:2:dffInst.i_resetBar
+RESETN => enARdFF_2:generateDFF:1:dffInst.i_resetBar
+RESETN => enARdFF_2:generateDFF:0:dffInst.i_resetBar
+SSCS => signalD.IN1
+SLCT[0] <= SLCT.DB_MAX_OUTPUT_PORT_TYPE
+SLCT[1] <= enARdFF_2:generateDFF:2:dffInst.o_q
+ENCT <= enARdFF_2:generateDFF:0:dffInst.o_q
+LDCT <= enARdFF_2:generateDFF:0:dffInst.o_q
+CTEP => signalD.IN1
+CTEP => signalD.IN1
+CTEP => signalD.IN1
+CTEP => signalD.IN1
+CTEP => signalD.IN1
+CTEP => signalD[0].IN1
+MSTL[0] <= MSTL.DB_MAX_OUTPUT_PORT_TYPE
+MSTL[1] <= MSTL.DB_MAX_OUTPUT_PORT_TYPE
+MSTL[2] <= enARdFF_2:generateDFF:2:dffInst.o_q
+SSTL[0] <= SSTL.DB_MAX_OUTPUT_PORT_TYPE
+SSTL[1] <= SSTL.DB_MAX_OUTPUT_PORT_TYPE
+SSTL[2] <= enARdFF_2:generateDFF:2:dffInst.o_q
+
+
+|TrafficLightController|FSMController:instFSMController|enARdFF_2:\generateDFF:3:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|FSMController:instFSMController|enARdFF_2:\generateDFF:2:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|FSMController:instFSMController|enARdFF_2:\generateDFF:1:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|FSMController:instFSMController|enARdFF_2:\generateDFF:0:dffInst
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|debouncer_2:instDebouncer
+i_resetBar => enARdFF_2:first.i_resetBar
+i_resetBar => enARdFF_2:second.i_resetBar
+i_clock => enARdFF_2:first.i_clock
+i_clock => enARdFF_2:second.i_clock
+i_raw => int_d1Input.IN1
+i_raw => int_d2Input.IN1
+o_clean <= int_debouncedRaw.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|debouncer_2:instDebouncer|enARdFF_2:first
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|debouncer_2:instDebouncer|enARdFF_2:second
+i_resetBar => int_q.ACLR
+i_d => int_q.DATAIN
+i_enable => int_q.ENA
+i_clock => int_q.CLK
+o_q <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+o_qBar <= int_q.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|TrafficLightController|MUX4:instMUXCounter
+I3[0] => O.DATAB
+I3[1] => O.DATAB
+I3[2] => O.DATAB
+I3[3] => O.DATAB
+I2[0] => O.DATAB
+I2[1] => O.DATAB
+I2[2] => O.DATAB
+I2[3] => O.DATAB
+I1[0] => O.DATAB
+I1[1] => O.DATAB
+I1[2] => O.DATAB
+I1[3] => O.DATAB
+I0[0] => O.DATAA
+I0[1] => O.DATAA
+I0[2] => O.DATAA
+I0[3] => O.DATAA
+O[0] <= O.DB_MAX_OUTPUT_PORT_TYPE
+O[1] <= O.DB_MAX_OUTPUT_PORT_TYPE
+O[2] <= O.DB_MAX_OUTPUT_PORT_TYPE
+O[3] <= O.DB_MAX_OUTPUT_PORT_TYPE
+C[0] => Equal0.IN1
+C[0] => Equal1.IN0
+C[0] => Equal2.IN1
+C[1] => Equal0.IN0
+C[1] => Equal1.IN1
+C[1] => Equal2.IN0
+
+
+|TrafficLightController|ConstantMST:instConstantMST
+MST[0] <= <VCC>
+MST[1] <= <VCC>
+MST[2] <= <GND>
+MST[3] <= <GND>
+
+
+|TrafficLightController|ConstantSST:instConstantSST
+SST[0] <= <VCC>
+SST[1] <= <VCC>
+SST[2] <= <GND>
+SST[3] <= <GND>
+
+
